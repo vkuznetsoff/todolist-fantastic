@@ -1,3 +1,4 @@
+import { FunctionDeclaration } from "typescript";
 
 export type TaskType = {
     id: number;
@@ -8,10 +9,14 @@ export type TaskType = {
 
 type PropsType = {
     title: string;
-    tasks: Array<TaskType>
+    tasks: Array<TaskType>,
+    removeTask: any
 }
 
 export function Todolist(props: PropsType) {
+    const handleClick = (id: number) => {
+        props.removeTask(id, props.tasks)
+    }
 
     return (
         <div className="">
@@ -21,14 +26,18 @@ export function Todolist(props: PropsType) {
                 <button></button>
             </div>
             <ul>
-            {props.tasks.map(el =>
-                
-                    <li key={el.id}><input type="checkbox" checked={el.isDone} /><span>{el.title}</span> </li>
-                    
-                
-            )}
+                {props.tasks.map(el =>
 
-</ul>
+                    <li key={el.id}>
+                        <input type="checkbox" checked={el.isDone} />
+                        <span>{el.title}</span>
+                        <button onClick={() => handleClick(el.id)}>x</button>
+                    </li>
+
+
+                )}
+
+            </ul>
 
 
             <div>
