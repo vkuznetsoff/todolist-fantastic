@@ -2,21 +2,22 @@ import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { TaskType, Todolist } from "./Todolist";
+import { v1 } from "uuid";
 
 export type FilterType = "all" | "active" | "complited"
 
 function App() {
  
   let tasks1 = [
-    { id: 1, title: "HTML&CSS", isDone: true },
-    { id: 2, title: "CSS", isDone: true },
-    { id: 3, title: "JS", isDone: false },
+    { id: v1(), title: "HTML&CSS", isDone: true },
+    { id: v1(), title: "CSS", isDone: true },
+    { id: v1(), title: "JS", isDone: false },
   ];
 
   let tasks2: Array<TaskType> = [
-    { id: 1, title: "Begin", isDone: true },
-    { id: 2, title: "Matrix", isDone: false },
-    { id: 3, title: "Titanik", isDone: true },
+    { id: v1(), title: "Begin", isDone: true },
+    { id: v1(), title: "Matrix", isDone: false },
+    { id: v1(), title: "Titanik", isDone: true },
   ];
 
   const [tasks, setTasks] = useState<Array<TaskType>>(tasks1);
@@ -32,12 +33,21 @@ function App() {
     if (filter == "all") tasksForUI = tasks
     
 
-  function deleteTask(id: number) {
+  function deleteTask(id: string) {
     // let result
     // tasks = arr.filter((el) => el.id !== id)
     setTasks(tasks => tasks.filter((el) => el.id !== id))
-
   }
+
+    function addTask(title: string) {
+      const task = {
+        id: v1(),
+        title,
+        isDone: false
+      }
+
+      setTasks([...tasks, task])
+    }
 
   return (
     <div className="App">
@@ -46,6 +56,7 @@ function App() {
         tasks={tasksForUI}
         removeTask={deleteTask}
         filterTask={handleFilter}
+        addTask={addTask}
       />
       {/* <Todolist title="Movies2" tasks={tasks2} removeTask={deleteTask}/> */}
     </div>
