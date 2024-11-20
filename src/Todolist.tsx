@@ -1,4 +1,5 @@
 import { FunctionDeclaration } from "typescript";
+import { FilterType } from "./App";
 
 export type TaskType = {
     id: number;
@@ -10,12 +11,13 @@ export type TaskType = {
 type PropsType = {
     title: string;
     tasks: Array<TaskType>,
-    removeTask: any
+    removeTask: (id: number) => void,
+    filterTask: (type: FilterType) => void
 }
 
 export function Todolist(props: PropsType) {
     const handleClick = (id: number) => {
-        props.removeTask(id, props.tasks)
+        props.removeTask(id)
     }
 
     return (
@@ -41,9 +43,9 @@ export function Todolist(props: PropsType) {
 
 
             <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Complited</button>
+                <button onClick={() => props.filterTask('all')}>All</button>
+                <button onClick={() => props.filterTask('active')}>Active</button>
+                <button onClick={() => props.filterTask('complited')}>Complited</button>
             </div>
         </div>
     );
