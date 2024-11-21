@@ -30,8 +30,11 @@ export function Todolist(props: PropsType) {
   };
 
   function handleAddTask() {
-    props.addTask(title);
-    setTitle("");
+    if (title.trim() !== ''){
+      props.addTask(title);
+      setTitle("");
+    }
+    
   }
 
   function inputKeyDown(e: KeyboardEvent<HTMLInputElement>) {
