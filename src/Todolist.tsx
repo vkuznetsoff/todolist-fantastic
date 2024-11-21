@@ -1,6 +1,11 @@
 import { FunctionDeclaration } from "typescript";
 import { FilterType } from "./App";
-import { ChangeEvent, ChangeEventHandler, KeyboardEvent, useState } from "react";
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  KeyboardEvent,
+  useState,
+} from "react";
 import { EventType } from "@testing-library/react";
 
 export type TaskType = {
@@ -15,6 +20,7 @@ type PropsType = {
   removeTask: (id: string) => void;
   filterTask: (type: FilterType) => void;
   addTask: (title: string) => void;
+  changeStatus: (id: string) => void;
 };
 
 export function Todolist(props: PropsType) {
@@ -30,12 +36,12 @@ export function Todolist(props: PropsType) {
 
   function inputKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key == "Enter") {
-        handleAddTask()
+      handleAddTask();
     }
   }
 
   function handleChangeInput(e: ChangeEvent<HTMLInputElement>) {
-    setTitle(e.target.value)
+    setTitle(e.target.value);
   }
 
   return (
@@ -53,7 +59,7 @@ export function Todolist(props: PropsType) {
       <ul>
         {props.tasks.map((el) => (
           <li key={el.id}>
-            <input type="checkbox" checked={el.isDone} />
+            <input type="checkbox" checked={el.isDone} onChange={() => props.changeStatus(el.id)}/>
             <span>{el.title}</span>
             <button onClick={() => handleClick(el.id)}>x</button>
           </li>
