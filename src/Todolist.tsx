@@ -15,12 +15,14 @@ export type TaskType = {
 };
 
 type PropsType = {
+  id: string,
   title: string;
   tasks: Array<TaskType>;
   removeTask: (id: string) => void;
-  filterTask: (type: FilterType) => void;
+  filterTask: (type: FilterType, id: string) => void;
   addTask: (title: string) => void;
   changeStatus: (id: string) => void;
+  filter: FilterType
 };
 
 export function Todolist(props: PropsType) {
@@ -70,9 +72,9 @@ export function Todolist(props: PropsType) {
       </ul>
 
       <div>
-        <button onClick={() => props.filterTask("all")}>All</button>
-        <button onClick={() => props.filterTask("active")}>Active</button>
-        <button onClick={() => props.filterTask("complited")}>Complited</button>
+        <button onClick={() => props.filterTask("all", props.id)}>All</button>
+        <button onClick={() => props.filterTask("active", props.id)}>Active</button>
+        <button onClick={() => props.filterTask("complited", props.id)}>Complited</button>
       </div>
     </div>
   );
