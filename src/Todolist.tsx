@@ -7,8 +7,10 @@ import {
   useState,
 } from "react";
 import { EventType } from "@testing-library/react";
-import "./Todolist.css"
 import { v1 } from "uuid";
+
+import    "./Todolist.css" 
+
 
 export type TaskType = {
   id: string;
@@ -91,14 +93,17 @@ export function Todolist(props: PropsType) {
       </ul>
 
       <div>
-        <button key={v1()} className={props.filter == 'all' ? 'btn-active' : ''}
+        <button key={v1()} className={props.filter =='all' ? 'btn-active' : ''}
           onClick={() => props.filterTask("all", props.id)}>All</button>
 
-        <button key={v1()} className={props.filter == "active" ? 'btn-active' : ''}
+        <button key={v1()} 
+        className={props.filter =='active' ?  'btn-active' : ''}
           onClick={() => props.filterTask("active", props.id)}>Active</button>
 
-        <button key={v1()} className={props.filter == "complited" ? 'btn-active' : ''}
+        <button key={v1()} 
+        className={props.filter =='complited' ? 'btn-active' : ''}
           onClick={() => props.filterTask("complited", props.id)}>Complited</button>
+          
       </div>
     </div>
   );
