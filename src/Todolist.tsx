@@ -11,6 +11,7 @@ import { v1 } from "uuid";
 
 import "./Todolist.css"
 import { AddItemForm } from "./AddItemForm";
+import { EditableSpan } from "./EditableSpan";
 
 
 export type TaskType = {
@@ -27,23 +28,28 @@ type PropsType = {
   filterTask: (type: FilterType, id: string) => void;
   addTask: (title: string, todolistId: string) => void;
   changeStatus: (taskId: string, todolistId: string) => void;
+  changeItemTitle: (newTitle: string, todolistId: string, itemId: string) => void,
   deleteTodolist: (todolistId: string) => void,
   filter: FilterType
 };
 
 export function Todolist(props: PropsType) {
-  
+
   const handleClick = (taskId: string) => {
     props.removeTask(taskId, props.id);
   };
 
-  
+
   function deleteTodolistHandle() {
     props.deleteTodolist(props.id)
   }
 
   function addTask(title: string) {
     props.addTask(title, props.id)
+  }
+
+  function onChangeItemTitle(newTitle: string, itemId: string) {
+    props.changeItemTitle(newTitle, props.id, itemId)
   }
 
   return (
@@ -53,7 +59,7 @@ export function Todolist(props: PropsType) {
         <button onClick={() => deleteTodolistHandle()}>x</button>
       </div>
 
-     
+
       <AddItemForm addItem={addTask} />
 
       <ul>
@@ -61,7 +67,9 @@ export function Todolist(props: PropsType) {
           <li key={el.id} className={el.isDone ? 'is-done' : ''}>
             <input type="checkbox" checked={el.isDone}
               onChange={() => props.changeStatus(el.id, props.id)} />
-            <span>{el.title}</span>
+
+            <EditableSpan title={el.title}
+              onChangeItem={(value) => onChangeItemTitle(value, el.id)} />
             <button onClick={() => handleClick(el.id)}>x</button>
           </li>
         ))}

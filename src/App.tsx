@@ -16,6 +16,10 @@ type TodolistType = {
   filter: FilterType
 }
 
+type TaskStateType = {
+  [key: string]: Array<TaskType>
+}
+
 function App() {
 
   // const [filter, setFilter] = useState<FilterType>("all");
@@ -42,7 +46,7 @@ function App() {
   )
 
 
-  const [tasks, setTasks] = useState({
+  const [tasks, setTasks] = useState<TaskStateType>({
     [tdList1]: [
       { id: v1(), title: "HTML&CSS", isDone: true },
       { id: v1(), title: "CSS", isDone: true },
@@ -112,6 +116,15 @@ function App() {
     setTasks({...tasks})
   }
 
+  function updateTask(newTitle: string, todolistId: string, taskId: string) {
+    let updTask = tasks[todolistId].find(t => t.id === taskId)
+    if (updTask) {
+      updTask.title = newTitle
+    }
+    setTasks({...tasks})
+   
+  }
+
   return (
     <div className="App">
       <AddItemForm addItem={addTodolist}/>
@@ -132,6 +145,7 @@ function App() {
             addTask={addTask}
             changeStatus={changeStatus}
             deleteTodolist={deleteTodolist}
+            changeItemTitle={updateTask}
             filter={tl.filter}
           />
         }
