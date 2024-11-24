@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { TaskType, Todolist } from "./Todolist";
 import { v1 } from "uuid";
+import { AddItemForm } from "./AddItemForm";
 
 
 
@@ -16,7 +17,7 @@ type TodolistType = {
 }
 
 function App() {
- 
+
   // const [filter, setFilter] = useState<FilterType>("all");
 
 
@@ -29,13 +30,13 @@ function App() {
         id: tdList1,
         title: 'T1',
         // tasks: tasks1,
-        filter: 'complited'
+        filter: 'all'
       },
       {
         id: tdList2,
         title: 'T2',
         // tasks: tasks2,
-        filter: 'active'
+        filter: 'all'
       }
     ]
   )
@@ -89,19 +90,18 @@ function App() {
     if (task) {
       task.isDone = !task.isDone
     }
-    setTasks({...tasks})
+    setTasks({ ...tasks })
   }
 
   function deleteTodolist(todolistId: string) {
     setTodolists(todolists.filter(td => td.id != todolistId))
     delete tasks[todolistId]
-    setTasks({...tasks})
+    setTasks({ ...tasks })
   }
 
   return (
     <div className="App">
-
-
+      <AddItemForm addItem={ () => {}} id="121212" />
       {
         todolists.map(tl => {
           let tasksForUI = tasks[tl.id]

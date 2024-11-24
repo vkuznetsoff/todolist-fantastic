@@ -9,7 +9,8 @@ import {
 import { EventType } from "@testing-library/react";
 import { v1 } from "uuid";
 
-import    "./Todolist.css" 
+import "./Todolist.css"
+import { AddItemForm } from "./AddItemForm";
 
 
 export type TaskType = {
@@ -31,33 +32,12 @@ type PropsType = {
 };
 
 export function Todolist(props: PropsType) {
-  const [title, setTitle] = useState("");
-  const [error, setError] = useState<string | null>(null)
-
+  
   const handleClick = (taskId: string) => {
     props.removeTask(taskId, props.id);
   };
 
-  function handleAddTask() {
-    if (title.trim() !== '') {
-      props.addTask(title, props.id);
-      setTitle("");
-    }
-    else { setError('Title is required!') }
-
-  }
-
-  function inputKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key == "Enter") {
-      handleAddTask();
-    }
-  }
-
-  function handleChangeInput(e: ChangeEvent<HTMLInputElement>) {
-    setError(null)
-    setTitle(e.target.value);
-  }
-
+  
   function deleteTodolistHandle() {
     props.deleteTodolist(props.id)
   }
@@ -69,18 +49,9 @@ export function Todolist(props: PropsType) {
         <button onClick={() => deleteTodolistHandle()}>x</button>
       </div>
 
-      <div className="todolist-content">
-        <input
-          type="text"
-          value={title}
-          onChange={handleChangeInput}
-          onKeyDown={inputKeyDown}
-          className={error ? "error": ""}
-        />
-        <button onClick={handleAddTask}>+</button>
-        {error && <div className="error-msg">{error}</div>}
+     
+      <AddItemForm addItem={props.addTask} id={props.id} />
 
-      </div>
       <ul>
         {props.tasks.map((el) => (
           <li key={el.id} className={el.isDone ? 'is-done' : ''}>
@@ -93,18 +64,20 @@ export function Todolist(props: PropsType) {
       </ul>
 
       <div>
-        <button key={v1()} className={props.filter =='all' ? 'btn-active' : ''}
+        <button key={v1()} className={props.filter == 'all' ? 'btn-active' : ''}
           onClick={() => props.filterTask("all", props.id)}>All</button>
 
-        <button key={v1()} 
-        className={props.filter =='active' ?  'btn-active' : ''}
+        <button key={v1()}
+          className={props.filter == 'active' ? 'btn-active' : ''}
           onClick={() => props.filterTask("active", props.id)}>Active</button>
 
-        <button key={v1()} 
-        className={props.filter =='complited' ? 'btn-active' : ''}
+        <button key={v1()}
+          className={props.filter == 'complited' ? 'btn-active' : ''}
           onClick={() => props.filterTask("complited", props.id)}>Complited</button>
-          
+
       </div>
     </div>
   );
 }
+
+
