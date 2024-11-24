@@ -42,6 +42,10 @@ export function Todolist(props: PropsType) {
     props.deleteTodolist(props.id)
   }
 
+  function addTask(title: string) {
+    props.addTask(title, props.id)
+  }
+
   return (
     <div className="">
       <div className="todolist-title">
@@ -50,7 +54,7 @@ export function Todolist(props: PropsType) {
       </div>
 
      
-      <AddItemForm addItem={props.addTask} id={props.id} />
+      <AddItemForm addItem={addTask} />
 
       <ul>
         {props.tasks.map((el) => (
