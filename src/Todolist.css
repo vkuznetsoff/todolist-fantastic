@@ -1,0 +1,31 @@
+.todolist-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.todolist-content {
+    flex-wrap: nowrap;
+}
+
+.btn {
+    background-color: gray
+}
+
+.btn-active {
+    background-color:gold
+}
+
+.is-done {
+    text-decoration: line-through;
+}
+
+.error-msg {
+    color: red;
+    opacity: 50%;
+}
+
+.error {
+    border-color: red;
+}
