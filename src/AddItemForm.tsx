@@ -1,3 +1,5 @@
+import { Button } from "@mui/material";
+
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 
 type AddItemFormPropsType = {
@@ -16,7 +18,7 @@ type AddItemFormPropsType = {
     }
   
     function inputKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-      if (e.key == "Enter") {
+      if (e.key === "Enter") {
         handleAddTask();
       }
     }
@@ -39,7 +41,8 @@ type AddItemFormPropsType = {
         onKeyDown={inputKeyDown}
         className={error ? "error" : ""}
       />
-      <button onClick={handleAddTask}>+</button>
+      {/* <button onClick={handleAddTask}>+</button> */}
+      <Button onClick={handleAddTask} variant="contained" color="primary">+</Button>
       {error && <div className="error-msg">{error}</div>}
     </div>
   }
