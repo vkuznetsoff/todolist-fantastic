@@ -82,9 +82,9 @@ export function Todolist(props: PropsType) {
               title={el.title}
               onChangeItem={(value) => onChangeItemTitle(value, el.id)}
             />
-           
+
             <IconButton aria-label="delete" size="small" onClick={() => handleClick(el.id)}>
-              <Delete fontSize="inherit"  />
+              <Delete fontSize="inherit" />
             </IconButton>
           </li>
         ))}
@@ -92,7 +92,7 @@ export function Todolist(props: PropsType) {
 
       <div>
         <Button
-        color="primary"
+          color="primary"
           variant={props.filter === "all" ? "outlined" : "text"}
           // className={props.filter === "all" ? "btn-active" : ""}
           onClick={() => props.filterTask("all", props.id)}
@@ -103,16 +103,14 @@ export function Todolist(props: PropsType) {
         <Button
           color="error"
           variant={props.filter === "active" ? "outlined" : "text"}
-          // className={props.filter === "active" ? "btn-active" : ""}
           onClick={() => props.filterTask("active", props.id)}
         >
           Active
         </Button>
 
         <Button
-        color="success"
-         variant={props.filter === "complited" ? "outlined" : "text"}
-          // className={props.filter === "complited" ? "btn-active" : ""}
+          color="success"
+          variant={props.filter === "complited" ? "outlined" : "text"}
           onClick={() => props.filterTask("complited", props.id)}
         >
           Complited
