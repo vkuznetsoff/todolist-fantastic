@@ -1,4 +1,5 @@
-import { Button, TextField } from "@mui/material";
+import { AddCircleOutline } from "@mui/icons-material";
+import { Button, IconButton, TextField } from "@mui/material";
 
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 
@@ -43,7 +44,9 @@ type AddItemFormPropsType = {
         error={!!error}
         helperText={error}
       />
-      <Button onClick={handleAddTask} variant="contained" color="primary">+</Button>
+      <IconButton onClick={handleAddTask}>
+       <AddCircleOutline />
+      </IconButton>
       
     </div>
   }

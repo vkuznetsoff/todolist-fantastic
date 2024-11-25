@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from "react"
 import { AddItemForm } from "./AddItemForm"
+import { TextField } from "@mui/material"
 
 type EditableSpanPropsType = {
     title: string,
@@ -17,22 +18,21 @@ export function EditableSpan(props: EditableSpanPropsType) {
     function submitEditHandle() {
         activeModeHandle()
         props.onChangeItem(title)
-        
+
     }
 
     function changeItemTitle(e: ChangeEvent<HTMLInputElement>) {
         setTilte(e.currentTarget.value)
-        
+
     }
 
     return (
         editMode ?
-            // <AddItemForm addItem={}/>
-            <input autoFocus placeholder={title} 
-            value={title}
-            onBlur={submitEditHandle} 
-            onChange={(e) => changeItemTitle(e)}
-            />
+    
+            <TextField autoFocus placeholder={title}
+                value={title}
+                onBlur={submitEditHandle}
+                onChange={changeItemTitle} variant="standard" />
             : <span onDoubleClick={activeModeHandle}>{props.title}</span>
     )
 }

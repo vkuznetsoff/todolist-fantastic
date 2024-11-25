@@ -60,6 +60,7 @@ export function Todolist(props: PropsType) {
 
         <IconButton
           aria-label="delete"
+        
           color="warning"
           onClick={deleteTodolistHandle}
         >
