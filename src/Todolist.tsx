@@ -1,14 +1,6 @@
-import { FunctionDeclaration } from "typescript";
-import { FilterType } from "./App";
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  KeyboardEvent,
-  useState,
-} from "react";
-import { EventType } from "@testing-library/react";
-import { v1 } from "uuid";
 
+import { FilterType } from "./App";
+import { v1 } from "uuid";
 import "./Todolist.css"
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
@@ -29,6 +21,7 @@ type PropsType = {
   addTask: (title: string, todolistId: string) => void;
   changeStatus: (taskId: string, todolistId: string) => void;
   changeItemTitle: (newTitle: string, todolistId: string, itemId: string) => void,
+  changeTodolistTitle: (newTitle: string, todolistId: string) => void,
   deleteTodolist: (todolistId: string) => void,
   filter: FilterType
 };
@@ -52,10 +45,16 @@ export function Todolist(props: PropsType) {
     props.changeItemTitle(newTitle, props.id, itemId)
   }
 
+  function changeTodolistTitle(title: string) {
+      props.changeTodolistTitle(title, props.id)
+  }
+
   return (
     <div className="">
       <div className="todolist-title">
-        <h3>{props.title}</h3>
+       
+        <EditableSpan title={props.title} onChangeItem={changeTodolistTitle} />
+
         <button onClick={() => deleteTodolistHandle()}>x</button>
       </div>
 

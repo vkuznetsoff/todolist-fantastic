@@ -122,7 +122,14 @@ function App() {
       updTask.title = newTitle
     }
     setTasks({...tasks})
-   
+  }
+
+  function updateTodolistTitle(newTitle: string, todolistId: string) {
+    let td = todolists.find(td => td.id === todolistId)
+    if (td) {
+      td.title = newTitle
+    }
+    setTodolists([...todolists])
   }
 
   return (
@@ -146,6 +153,7 @@ function App() {
             changeStatus={changeStatus}
             deleteTodolist={deleteTodolist}
             changeItemTitle={updateTask}
+            changeTodolistTitle={updateTodolistTitle}
             filter={tl.filter}
           />
         }
