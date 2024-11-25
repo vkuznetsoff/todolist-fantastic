@@ -70,9 +70,9 @@ export function Todolist(props: PropsType) {
 
       <AddItemForm addItem={addTask} />
 
-      <ul>
+      <div>
         {props.tasks.map((el) => (
-          <li key={el.id} className={el.isDone ? "is-done" : ""}>
+          <div key={el.id} className={el.isDone ? "is-done" : ""}>
 
             <Checkbox
               checked={el.isDone}
@@ -89,9 +89,9 @@ export function Todolist(props: PropsType) {
             <IconButton aria-label="delete" size="small" onClick={() => handleClick(el.id)}>
               <Delete fontSize="inherit" />
             </IconButton>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
 
       <div>
         <Button
