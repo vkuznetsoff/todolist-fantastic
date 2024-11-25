@@ -3,7 +3,7 @@ import { v1 } from "uuid";
 import "./Todolist.css";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
-import { Button, IconButton } from "@mui/material";
+import { Button, Checkbox, IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 
 export type TaskType = {
@@ -72,16 +72,18 @@ export function Todolist(props: PropsType) {
       <ul>
         {props.tasks.map((el) => (
           <li key={el.id} className={el.isDone ? "is-done" : ""}>
-            <input
-              type="checkbox"
+
+            <Checkbox
               checked={el.isDone}
               onChange={() => props.changeStatus(el.id, props.id)}
+              inputProps={{ 'aria-label': 'controlled' }}
             />
 
             <EditableSpan
               title={el.title}
               onChangeItem={(value) => onChangeItemTitle(value, el.id)}
             />
+
 
             <IconButton aria-label="delete" size="small" onClick={() => handleClick(el.id)}>
               <Delete fontSize="inherit" />
