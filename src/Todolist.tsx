@@ -5,6 +5,7 @@ import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
 import { Button, Checkbox, IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
+import { Suspense } from "react";
 
 export type TaskType = {
   id: string;
@@ -70,11 +71,12 @@ export function Todolist(props: PropsType) {
 
       <AddItemForm addItem={addTask} />
 
+
       <div>
         {props.tasks.map((el) => (
           <div key={el.id} className={el.isDone ? "is-done" : ""}>
 
-            <Checkbox
+            <Checkbox 
               checked={el.isDone}
               onChange={() => props.changeStatus(el.id, props.id)}
               inputProps={{ 'aria-label': 'controlled' }}
