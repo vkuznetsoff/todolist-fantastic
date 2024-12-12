@@ -1,3 +1,4 @@
+import { v1 } from "uuid";
 import { TaskStateType } from "../App";
 import { TaskType } from "../Todolist";
 
@@ -13,12 +14,13 @@ export type RemoveTaskActionType = {
   tdId: string;
 };
 
-export type Action2Type = {
-  type: "2";
+export type AddTaskActionType = {
+  type: "ADD-TASK";
+  todolistID: string;
   title: string;
 };
 
-type ActionType = RemoveTaskActionType | Action2Type;
+type ActionType = RemoveTaskActionType | AddTaskActionType;
 
 export const TaskReducer = (
   state: TaskStateType,
@@ -34,16 +36,28 @@ export const TaskReducer = (
     //         return t
     //     })
 
-    case "REMOVE-TASK":
+    case "REMOVE-TASK": {
       const filteredTask = state[action.tdId].filter(
         (t) => t.id !== action.taskId
       );
       const stateCopy = { ...state };
       stateCopy[action.tdId] = filteredTask;
       return stateCopy;
+    }
 
-    case "2":
-      return { ...state };
+    case "ADD-TASK": {
+      const stateCopy = { ...state };
+      const tasks = state[action.todolistID];
+      const newTask = {
+        id: v1(),
+        title: action.title,
+        isDone: false,
+      };
+
+      const newTasks = [newTask, ...tasks];
+      stateCopy[action.todolistID] = newTasks;
+      return stateCopy;
+    }
 
     default:
       throw new Error("No such action type in task-reducer");
@@ -69,9 +83,13 @@ export const removeTaskAC = (
   };
 };
 
-export const action2AC = (title: string): ActionType => {
+export const addTaskAC = (
+  todolistID: string,
+  title: string
+): AddTaskActionType => {
   return {
-    type: "2",
+    type: "ADD-TASK",
+    todolistID: todolistID,
     title,
   };
 };

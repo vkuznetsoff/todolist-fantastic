@@ -1,6 +1,6 @@
 import { v1 } from "uuid"
 import { TaskType } from "../Todolist"
-import { Action1Type, removeTaskAC, TaskReducer } from "./task-reducer"
+import { addTaskAC, removeTaskAC, TaskReducer } from "./task-reducer"
 import { TaskStateType, TodolistType } from "../App"
 import { useState } from "react"
 
@@ -31,6 +31,40 @@ test('Correct task deleted from correctTodolist', () => {
       expect(endState[tdList2].every(t => t.id != "2")).toBeTruthy()
   
    
+})
+
+test('Add task to correct Todolist', () => {
+  const tdList1 = v1()
+  const tdList2 = v1()
+
+  const newTitle = 'NewTitle'
+
+
+const startState: TaskStateType = 
+  {
+      [tdList1]: [
+        { id: '1', title: "HTML&CSS", isDone: true },
+        { id: '2', title: "CSS", isDone: true },
+        { id: '3', title: "JS", isDone: false }
+      ],
+      [tdList2]: [
+        { id: '1', title: "Begin", isDone: true },
+        { id: '2', title: "Matrix", isDone: false },
+        { id: '3', title: "Titanik", isDone: true }
+      ]
+    }
+
+    const action = addTaskAC(tdList1, newTitle)
+    const endState = TaskReducer(startState, action)
+
+    expect(endState[tdList1].length).toBe(4)
+    expect(endState[tdList2].length).toBe(3)
+
+    expect(endState[tdList1][0].id).toBeDefined()
+    expect(endState[tdList1][0].title).toBe(newTitle)
+    expect(endState[tdList1][0].isDone).toBe(false)
+
+ 
 })
 // test('Change task title', () => {
 
