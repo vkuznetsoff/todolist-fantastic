@@ -20,7 +20,13 @@ export type AddTaskActionType = {
   title: string;
 };
 
-type ActionType = RemoveTaskActionType | AddTaskActionType;
+export type ChangeTaskStatusActionType = {
+  type: "CHANGE-STATUS";
+  todolistID: string;
+  taskId: string;
+};
+
+type ActionType = RemoveTaskActionType | AddTaskActionType | ChangeTaskStatusActionType;
 
 export const TaskReducer = (
   state: TaskStateType,
@@ -59,6 +65,17 @@ export const TaskReducer = (
       return stateCopy;
     }
 
+    case "CHANGE-STATUS": {
+      const stateCopy = {...state}
+      const tasks = stateCopy[action.todolistID]
+      const task = tasks.find(t => t.id === action.taskId)
+      if (task) {
+        task.isDone =  !task.isDone
+      }
+
+      return stateCopy
+    }
+
     default:
       throw new Error("No such action type in task-reducer");
   }
@@ -93,3 +110,15 @@ export const addTaskAC = (
     title,
   };
 };
+
+export const changeTaskStatusAC = (
+  todolistID: string,
+  taskId: string
+): ChangeTaskStatusActionType => {
+  return {
+    type: "CHANGE-STATUS",
+    todolistID: todolistID,
+    taskId,
+  };
+};
+
